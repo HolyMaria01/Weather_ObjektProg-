@@ -12,12 +12,20 @@ fetch(req)
 })
 .then(function (data){
     console.log(data)
+    drawWeather(data)
 })
     .catch(function (error){
         console.log(error)
     })
 }
 
+function drawWeather(data){
+    let temp = Math.round(data.main.temp - 273.15)
+
+    document.querySelector(`#location`).innerHTML = data.name
+    document.querySelector(`#description`).innerHTML = data.weather[0].description
+    document.querySelector(`#temp`).innerHTML = `${temp}&deg`
+}
 function cityWeather(){
     weatherDataFetch('Tartu')
 }
