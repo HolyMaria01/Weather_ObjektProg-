@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', cityWeather)
 
-let city = 'Tartu'
+const form = document.querySelector('#weather-form')
+form.addEventListener('submit', cityWeather)
 
 function weatherDataFetch(city){
-let key = '9aa51be23f955edf938259cda8c1fae5'
+//let key = '9aa51be23f955edf938259cda8c1fae5'
+let key = '77f97b598769bf8861004c74e30ebbba'
 let req = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}`
 
 fetch(req)
@@ -26,8 +28,15 @@ function drawWeather(data){
     document.querySelector(`#description`).innerHTML = data.weather[0].description
     document.querySelector(`#temp`).innerHTML = `${temp}&deg`
 }
-function cityWeather(){
-    weatherDataFetch('Tartu')
+function cityWeather(event){
+    if(document.querySelector('#city').value !== ''){
+        city = document.querySelector('#city').value
+        ocument.querySelector('#city').value = ''
+    } else {
+        city = 'Tartu'
+    }
+    weatherDataFetch(city)
+    event.preventDefault()
 }
 
 
